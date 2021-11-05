@@ -66,7 +66,8 @@ func getKickerDetail(c *gin.Context) {
 
 func newKicker(c *gin.Context) {
 	var newKicker Kicker
-
+	//
+	// curl -H "Content-Type: application/json" -X POST -d '{"ID":1,"Name":"fabian-dev2"}' http://192.168.69.22:8083/api/kicker/new
 	// Call BindJSON to bind the received JSON to
 	// newKicker.
 	if err := c.BindJSON(&newKicker); err != nil {
