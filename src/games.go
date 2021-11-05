@@ -7,6 +7,8 @@ import (
     "database/sql"
     _ "github.com/go-sql-driver/mysql"
     "encoding/json"
+     b64 "encoding/base64"
+     "strings"
 )
 
 
@@ -23,8 +25,9 @@ func getGames(c *gin.Context) {
     }
     var gamelist []Games
 
+    b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
+    db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred),"\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/smartkicker")
 
-    db, err := sql.Open("mysql", "root:root@tcp(192.168.69.22:8989)/smartkicker")
     defer db.Close()
     rows, err := db.Query("SELECT * FROM games")
     if err != nil {

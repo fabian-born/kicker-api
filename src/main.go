@@ -1,6 +1,11 @@
 package main
 
 import (
+   "fmt"
+   "os"
+   "io/ioutil"
+   "github.com/go-yaml/yaml"
+   b64 "encoding/base64"
     "net/http"
     "github.com/gin-gonic/gin"
     "database/sql"
@@ -21,6 +26,24 @@ var albums = []album{
     {ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 }
 
+type conf struct {
+    DBHost string `yaml:"dbhost"`
+    DBPort string `yaml:"dbport"`
+    Credential string `yaml:"dbcredential"`
+}
+
+func (c *conf) GetConfig() *conf {
+    confContent, err := ioutil.ReadFile("config.yml")
+    if err != nil {
+        panic(err)
+    }
+    confContent = []byte(os.ExpandEnv(string(confContent)))
+    // c := &Config{}
+    if err := yaml.Unmarshal(confContent, c); err != nil {
+        panic(err)
+    }
+    return c
+}
 
 func getAlbums(c *gin.Context) {
     c.IndentedJSON(http.StatusOK, albums)
@@ -42,8 +65,16 @@ func postAlbums(c *gin.Context) {
     c.IndentedJSON(http.StatusCreated, newAlbum)
 }
 
+var myconf conf
 func main() {
-    db, err := sql.Open("mysql", "root:root@tcp(192.168.69.22:8989)/smartkicker")
+//    var myconf conf
+    myconf.GetConfig()
+    // expand environment variables
+    b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
+    dec_cred := string(b_dec_cred)
+    fmt.Printf(dec_cred)
+
+    db, err := sql.Open("mysql", dec_cred+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/smartkicker")
     if err != nil {
         panic(err.Error())
     }

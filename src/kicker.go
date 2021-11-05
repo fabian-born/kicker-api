@@ -7,6 +7,8 @@ import (
     "database/sql"
     _ "github.com/go-sql-driver/mysql"
     "encoding/json"
+       b64 "encoding/base64"
+       "strings"
 )
 
 
@@ -18,7 +20,9 @@ func getKicker(c *gin.Context) {
     var kickerlist []Kicker
 
 
-    db, err := sql.Open("mysql", "root:root@tcp(192.168.69.22:8989)/smartkicker")
+    b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
+    db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred),"\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/smartkicker")
+
     defer db.Close()
     rows, err := db.Query("SELECT id, name FROM kicker")
     if err != nil {
@@ -43,7 +47,8 @@ func getKickerDetail(c *gin.Context) {
        Name string `json:"name"`
     }
     var kickerlist []Kicker
-    db, err := sql.Open("mysql", "root:root@tcp(192.168.69.22:8989)/smartkicker")
+    b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
+    db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred),"\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/smartkicker")
     if err != nil {
         panic(err.Error())
     }
