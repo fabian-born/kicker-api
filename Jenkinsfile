@@ -20,9 +20,9 @@ podTemplate(label: 'mypod', containers: [
                         usernameVariable: 'DOCKER_HUB_USER',
                         passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
                     
-                    sh "docker build -t registry.gitlab.com/fabianborn/docker-images/kicker-api:v0.2b-${env.BUILD_NUMBER} ."
+                    sh "docker build -t registry.gitlab.com/fabianborn/docker-images/kicker-api:v0.2e-${env.BUILD_NUMBER} ."
                     sh "docker login registry.gitlab.com  -u fabianborn -p ${env.DOCKER_HUB_PASSWORD} "
-                    sh "docker push registry.gitlab.com/fabianborn/docker-images/kicker-api:v0.2b-${env.BUILD_NUMBER} "
+                    sh "docker push registry.gitlab.com/fabianborn/docker-images/kicker-api:v0.2e-${env.BUILD_NUMBER} "
                 }
             }
         }
@@ -47,11 +47,11 @@ podTemplate(label: 'mypod', containers: [
         stage ("Manual Test & Approve Push to Production"){
           // Test instance is online.  Ask for approval to push to production.
           // notifyBuild('APPROVAL-REQUIRED')
-          push = input(
-            id: 'push', message: 'Push to production?', parameters: [
-              [$class: 'ChoiceParameterDefinition', choices: 'Yes\nNo', description: '', name: 'Select yes or no']
-            ]
-          )
+         //  push = input(
+         //   id: 'push', message: 'Push to production?', parameters: [
+         //     [$class: 'ChoiceParameterDefinition', choices: 'Yes\nNo', description: '', name: 'Select yes or no']
+         //   ]
+         // )
         }
         
         stage('Deploy in Production') {
