@@ -19,10 +19,11 @@ podTemplate(label: 'mypod', containers: [
                         credentialsId: 'gitlab-credential-fb',
                         usernameVariable: 'DOCKER_HUB_USER',
                         passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
-                    
-                    sh "docker build -t registry.gitlab.com/fabianborn/docker-images/kicker-api:v0.2e-${env.BUILD_NUMBER} ."
+                    def BUILDVERSION = sh(script: "date +%Y.%m.%d", returnStdout: true).trim()
+	            def MYBUILDVERS = "$BUILDVERSION${env.BUILD_NUMBER}" 
+                    sh "docker build -t registry.gitlab.com/fabianborn/docker-images/kicker-api:v0.2e-$MYBUILDVERS ."
                     sh "docker login registry.gitlab.com  -u fabianborn -p ${env.DOCKER_HUB_PASSWORD} "
-                    sh "docker push registry.gitlab.com/fabianborn/docker-images/kicker-api:v0.2e-${env.BUILD_NUMBER} "
+                    sh "docker push registry.gitlab.com/fabianborn/docker-images/kicker-api:v0.2e-$MYBUILDVERS "
                 }
             }
         }
