@@ -27,7 +27,7 @@ func getGames(c *gin.Context) {
 
     b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
     db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred),"\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/smartkicker")
-
+    // return games data
     defer db.Close()
     rows, err := db.Query("SELECT * FROM games")
     if err != nil {
