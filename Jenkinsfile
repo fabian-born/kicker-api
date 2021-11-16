@@ -45,8 +45,8 @@ podTemplate(label: 'mypod', containers: [
         }
         def push = ""
         stage ("Manual Test & Approve Push to Production"){
-          // Test instance is online.  Ask for approval to push to production.
-          // notifyBuild('APPROVAL-REQUIRED')
+          //  Test instance is online.  Ask for approval to push to production.
+           notifyBuild('APPROVAL-REQUIRED')
          //  push = input(
          //   id: 'push', message: 'Push to production?', parameters: [
          //     [$class: 'ChoiceParameterDefinition', choices: 'Yes\nNo', description: '', name: 'Select yes or no']
