@@ -15,10 +15,10 @@ podTemplate(label: 'mypod', containers: [
         stage('Build and Push Container') {
             container('docker') {
 
-//                withCredentials([[$class: 'UsernamePasswordMultiBinding',
-//                        credentialsId: 'docker-hub-cred',
-//                        usernameVariable: 'DOCKER_HUB_USER',
-//                        passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                        credentialsId: 'gitlab-credential-fb',
+                        usernameVariable: 'DOCKER_HUB_USER',
+                        passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
                     
                     sh "docker build -t fabianborn/webapp:${env.BUILD_NUMBER} ."
 //                    sh "docker login -u fabianborn -p ${env.DOCKER_HUB_PASSWORD} "
@@ -58,7 +58,7 @@ podTemplate(label: 'mypod', containers: [
             container('kubectl') {
                 sh "sleep 10"
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', 
-                        credentialsId: 'docker-hub-cred',
+                        credentialsId: 'gitlab-credential-fb',
                         usernameVariable: 'DOCKER_HUB_USER',
                         passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
                     
