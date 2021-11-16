@@ -21,7 +21,7 @@ podTemplate(label: 'mypod', containers: [
                         passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
                     
                     sh "docker build -t registry.gitlab.com/fabianborn/docker-images/kicker-api:v0.2b-${env.BUILD_NUMBER} ."
-                    sh "docker login -u fabian-born -p ${env.DOCKER_HUB_PASSWORD} "
+                    sh "docker login registry.gitlab.com  -u fabianborn -p ${env.DOCKER_HUB_PASSWORD} "
                     sh "docker push registry.gitlab.com/fabianborn/docker-images/kicker-api:v0.2b-${env.BUILD_NUMBER} "
                 }
             }
