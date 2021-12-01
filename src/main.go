@@ -44,7 +44,7 @@ type conf struct {
 }
 
 func (c *conf) GetConfig() *conf {
-	confContent, err := ioutil.ReadFile("config.yml")
+	confContent, err := ioutil.ReadFile("config/config.yml")
 	if err != nil {
 		panic(err)
 	}
