@@ -6,7 +6,7 @@ LABEL maintainers="Fabian Born" \
 RUN mkdir /app
 WORKDIR /src
 # RUN apk add --no-cache bash go git
-RUN ls /app
+RUN ls /src
 RUN go get github.com/gin-gonic/gin
 RUN go get github.com/go-sql-driver/mysql
 RUN go get github.com/go-yaml/yaml
