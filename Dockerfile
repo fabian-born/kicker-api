@@ -7,7 +7,7 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 # RUN apk add --no-cache bash go git
-RUN ls /src
+RUN ls /app
 RUN go get github.com/gin-gonic/gin
 RUN go get github.com/go-sql-driver/mysql
 RUN go get github.com/go-yaml/yaml
