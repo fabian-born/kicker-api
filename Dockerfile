@@ -11,7 +11,7 @@ RUN ls /app
 RUN go get github.com/gin-gonic/gin
 RUN go get github.com/go-sql-driver/mysql
 RUN go get github.com/go-yaml/yaml
-RUN go build -o /app/api .
+RUN go build -o /app/api ./src
 
 CMD ["/app/api"]
 
