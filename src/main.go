@@ -25,17 +25,17 @@ type games struct {
 	ENDDATE   string `json:"enddate"`
 }
 
-type gamedata struct {
-	GDID        int     `json:"gdid"`
-	GAMEID      int     `json:"gameid"`
-	KICEKRID    int     `json:"kickerid"`
-	GOALDATE    string  `json:"goaldate"`
-	TEAM_A_GOAL int     `json:"team_a_goal"`
-	TEAM_B_GOAL int     `json:"team_b_goal"`
-	HUMIDITY    float32 `json:"humidity"`
-	TEMPERATURE float32 `json:"temperature"`
-	TEAM_A_ID   int     `json:"team_a_id"`
-	TEAM_B_ID   int     `json:"team_b_id"`
+type Gamedata struct {
+	Gdid        int     `json:"gdid"`
+	Gameid      string     `json:"gameid"`
+	KickerId    string    `json:"kickerid"`
+	Goaldate    string  `json:"goaldate"`
+	TeamAGoal   string     `json:"teamagoal"`
+	TeamBGoal   string     `json:"teambgoal"`
+	Humidity    string `json:"humidity"`
+	Temperature string `json:"temperature"`
+	TeamAId     string     `json:"teamaid"`
+	TeamBId     string     `json:"teambid"`
 }
 type conf struct {
 	DBHost     string `yaml:"dbhost"`
@@ -44,7 +44,8 @@ type conf struct {
 }
 
 func (c *conf) GetConfig() *conf {
-	confContent, err := ioutil.ReadFile("/app/config/config.yml")
+	// confContent, err := ioutil.ReadFile("/app/config/config.yml")
+	confContent, err := ioutil.ReadFile("./config.yml")
 	if err != nil {
 		panic(err)
 	}
@@ -82,9 +83,9 @@ func main() {
 	router.GET("/api/kicker", getKicker)
 	router.POST("api/kicker/new", newKicker)
 	router.GET("/api/kicker/:name", getKickerDetail)
-	router.GET("/api/kicker/:name/goal", KickerGoal)
+	router.POST("/api/kicker/goal", KickerGoal)
 	router.GET("/api/kicker/:name/startgame", KickerStartgame)
 	router.GET("/api/kicker/:name/endgame", KickerEndgame)
 	router.GET("/api/games", getGames)
-	router.Run(":8083")
+	router.Run(":8084")
 }
