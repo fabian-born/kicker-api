@@ -87,5 +87,6 @@ func main() {
 	router.GET("/api/kicker/:name/startgame", KickerStartgame)
 	router.GET("/api/kicker/:name/endgame", KickerEndgame)
 	router.GET("/api/games", getGames)
+	router.GET("/api/games/:id/data", getGameData)
 	router.Run(":8084")
 }
