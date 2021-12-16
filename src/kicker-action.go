@@ -1,7 +1,7 @@
 package main
 
 import (
-	"net/http"
+	// "net/http"
         "database/sql"
         b64 "encoding/base64"
         "strings"
@@ -9,11 +9,36 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func KickerStartgame(c *gin.Context) {
-	name := c.Param("name")
-	message := "comming soon! " + name + " action: StartGame"
-	c.String(http.StatusOK, message)
+func KickerPlayGame(c *gin.Context) {
+	id := c.Param("id")
+	action := c.Param("action")
 
+        var PlayGame Games
+        if err := c.BindJSON(&PlayGame); err != nil {
+              return
+        }
+	if  PlayGame.KickerId ==  id {
+		b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
+	        c.JSON(200, gin.H{"status": PlayGame})
+		db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/smartkicker")
+	        // UPDATE `games` SET `enddate` = NOW() WHERE `games`.`gameid` = 1 UPDATE games set enddate = now() where (gameid = 2 and Kickerid = 6);
+		if action == "startgame" {
+			sqlquery, err := db.Query("insert into games value (NULL, '"+ PlayGame.KickerId +"',now(),NULL)" )
+			if err != nil {panic(err.Error())}
+			defer sqlquery.Close()
+		}else if action == "endgame"{
+			sqlquery, err := db.Query("UPDATE games set enddate = now() where (kickerid = '"+ PlayGame.KickerId +"' and gameid = '"+ PlayGame.GameId +"')" )
+			if err != nil {panic(err.Error())}
+			defer sqlquery.Close()
+		}else{
+			c.JSON(200, gin.H{"status": "action not found"})
+		}
+
+
+	        if err != nil {panic(err.Error())}
+	}else{
+		c.JSON(200, gin.H{"status": "Kicker not valid"})
+	}
 }
 
 func KickerGoal(c *gin.Context) {
@@ -41,9 +66,3 @@ func KickerGoal(c *gin.Context) {
         // Add the new album to the slice.
 }
 
-func KickerEndgame(c *gin.Context) {
-	name := c.Param("name")
-	message := "comming soon! " + name + " action: StartGame"
-	c.String(http.StatusOK, message)
-
-}

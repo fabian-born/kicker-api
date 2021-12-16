@@ -18,11 +18,11 @@ type Kicker struct {
 	Name string `json:"name"`
 }
 
-type games struct {
-	GAMEID    int    `json:"gameid"`
-	KICKERID  int    `json:"kickerid"`
-	STARTDATE string `json:"startdate"`
-	ENDDATE   string `json:"enddate"`
+type Games struct {
+	GameId    string    `json:"gameid"`
+	KickerId  string    `json:"kickerid"`
+	StartDate string `json:"startdate"`
+	EndDate   string `json:"enddate"`
 }
 
 type Gamedata struct {
@@ -82,10 +82,10 @@ func main() {
 	})
 	router.GET("/api/kicker", getKicker)
 	router.POST("api/kicker/new", newKicker)
-	router.GET("/api/kicker/:name", getKickerDetail)
+	router.GET("/api/kicker/:id", getKickerDetail)
+	router.GET("/api/kicker/:id/latest", getKickerlatestGame)
 	router.POST("/api/kicker/goal", KickerGoal)
-	router.GET("/api/kicker/:name/startgame", KickerStartgame)
-	router.GET("/api/kicker/:name/endgame", KickerEndgame)
+	router.POST("/api/kicker/:id/:action", KickerStartgame)
 	router.GET("/api/games", getGames)
 	router.GET("/api/games/:id/data", getGameData)
 	router.Run(":8084")

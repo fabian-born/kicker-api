@@ -47,7 +47,7 @@ func getKickerDetail(c *gin.Context) {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT id, name FROM kicker where name = ?", name)
+	rows, err := db.Query("SELECT id, name FROM kicker where id = ?", name)
 	if err != nil {
 		log.Fatal(err)
 	}
