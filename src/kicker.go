@@ -17,7 +17,7 @@ func getKicker(c *gin.Context) {
 	var kickerlist []Kicker
 
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
-	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/smartkicker")
+	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
 
 	defer db.Close()
 	rows, err := db.Query("SELECT id, name FROM kicker")
@@ -41,7 +41,7 @@ func getKickerDetail(c *gin.Context) {
 
 	var kickerlist []Kicker
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
-	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/smartkicker")
+	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
 	if err != nil {
 		panic(err.Error())
 	}
@@ -74,7 +74,7 @@ func newKicker(c *gin.Context) {
 		return
 	}
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
-	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/smartkicker")
+	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
 
 	insert, err := db.Query("INSERT INTO kicker VALUES ( NULL, '" + newKicker.Name + "' )")
 	if err != nil {

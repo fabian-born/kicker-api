@@ -41,6 +41,7 @@ type conf struct {
 	DBHost     string `yaml:"dbhost"`
 	DBPort     string `yaml:"dbport"`
 	Credential string `yaml:"dbcredential"`
+	dbkicker  string `yaml:"dbkicker"`
 }
 
 func (c *conf) GetConfig() *conf {
@@ -67,7 +68,7 @@ func main() {
 	dec_cred := string(b_dec_cred)
 	fmt.Printf(dec_cred)
 
-	db, err := sql.Open("mysql", dec_cred+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/smartkicker")
+	db, err := sql.Open("mysql", dec_cred+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
 	if err != nil {
 		panic(err.Error())
 	}
@@ -85,7 +86,7 @@ func main() {
 	router.GET("/api/kicker/:id", getKickerDetail)
 	router.GET("/api/kicker/:id/latest", getKickerlatestGame)
 	router.POST("/api/kicker/goal", KickerGoal)
-	router.POST("/api/kicker/:id/:action", KickerStartgame)
+	router.POST("/api/kicker/:id/:action", KickerPlayGame)
 	router.GET("/api/games", getGames)
 	router.GET("/api/games/:id/data", getGameData)
 	router.Run(":8084")
