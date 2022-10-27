@@ -77,9 +77,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	router.LoadHTMLGlob("html/*")
+	// router.LoadHTMLGlob("html/*")
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl", nil)
+		// c.HTML(http.StatusOK, "index.tmpl", nil)
 	})
 	router.GET("/api/kicker", getKicker)
 	router.POST("api/kicker/new", newKicker)
