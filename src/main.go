@@ -5,7 +5,7 @@ import (
 	b64 "encoding/base64"
 	"fmt"
 	"io/ioutil"
-	"net/http"
+	// "net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
