@@ -13,6 +13,9 @@ RUN go get github.com/go-sql-driver/mysql
 RUN go get github.com/go-yaml/yaml
 RUN go build -o /app/api ./src
 
+EXPOSE 8084
+
 CMD ["/app/api"]
 
 USER root
+
