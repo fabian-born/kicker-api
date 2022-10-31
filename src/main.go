@@ -81,8 +81,8 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		// c.HTML(http.StatusOK, "index.tmpl", nil)
 	})
-	router.GET("/health", func(c *gin.Context) { c.String(200, "OK") })
-	router.GET("/readiness", func(c *gin.Context) { c.String(200, "OK") })
+	router.GET("/health", func(c *gin.Context) { c.JSON(http.StatusOK, "ok") })
+	router.GET("/readiness", func(c *gin.Context) { c.JSON(http.StatusOK, "ok") })
 	
 	router.GET("/api/kicker", getKicker)
 	router.POST("api/kicker/new", newKicker)
