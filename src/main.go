@@ -5,7 +5,7 @@ import (
 	b64 "encoding/base64"
 	"fmt"
 	"io/ioutil"
-	// "net/http"
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -81,6 +81,9 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		// c.HTML(http.StatusOK, "index.tmpl", nil)
 	})
+	router.GET("/health", func(c *gin.Context) { c.String(200, "OK") })
+	router.GET("/readiness", func(c *gin.Context) { c.String(200, "OK") })
+	
 	router.GET("/api/kicker", getKicker)
 	router.POST("api/kicker/new", newKicker)
 	router.GET("/api/kicker/:id", getKickerDetail)
@@ -89,5 +92,6 @@ func main() {
 	router.POST("/api/kicker/:id/:action", KickerPlayGame)
 	router.GET("/api/games", getGames)
 	router.GET("/api/games/:id/data", getGameData)
-	router.Run(":8084")
+	http.ListenAndServe(":8084", router)
+	// router.Run(":8084")
 }
