@@ -16,7 +16,7 @@ import (
 func getKicker(c *gin.Context) {
 	var kickerlist []Kicker
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
-	fmt.Printf(b_dec_cred)
+	fmt.Printf(string(b_dec_cred))
 	fmt.Printf("constring: " + string(myconf.DBHost) + string(myconf.DBPort) + "/" + string(myconf.dbkicker))
 	db, err := sql.Open("mysql", strings.TrimSuffix(string(), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
 
