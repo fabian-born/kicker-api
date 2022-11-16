@@ -17,7 +17,7 @@ func getKicker(c *gin.Context) {
 	var kickerlist []Kicker
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
 	fmt.Printf(string(b_dec_cred))
-	fmt.Printf("constring: " + string(myconf.DBHost) + string(myconf.DBPort) + "/" + string(myconf.dbkicker))
+	fmt.Printf("constring: " + string(myconf.DBHost) + string(myconf.DBPort) + "/" + string(myconf.DBkicker))
 	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
 	defer db.Close()
 	rows, err := db.Query("SELECT id, name FROM kicker")
