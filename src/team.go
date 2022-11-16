@@ -15,7 +15,7 @@ import (
 
 // team functions //
 func ListTeams(c *gin.Context) {
-	var teamslist []Team
+	var teamlist []Team
 
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
 	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
