@@ -41,7 +41,7 @@ type conf struct {
 	DBHost     string `yaml:"dbhost"`
 	DBPort     string `yaml:"dbport"`
 	Credential string `yaml:"dbcredential"`
-	Dbkicker string `yaml:"database"`
+	Dbkicker   string `yaml:"database"`
 }
 
 type Team struct {
