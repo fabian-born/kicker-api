@@ -9,4 +9,5 @@ data:
     dbhost: "mysql.epicshitio-kicker.svc.cluster.local"
     dbport: 3306
     dbcredential: "cm9vdDp0ZXN0MTIzNAo="
-    database: kicker
+    database: "kicker"
+    debug: "unused"
