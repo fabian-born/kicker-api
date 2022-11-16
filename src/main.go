@@ -41,7 +41,7 @@ type conf struct {
 	DBHost     string `yaml:"dbhost"`
 	DBPort     string `yaml:"dbport"`
 	Credential string `yaml:"dbcredential"`
-	dbkicker  string `yaml:"database"`
+	Dbkicker string `yaml:"database"`
 }
 
 type Team struct {
@@ -76,8 +76,8 @@ func main() {
 	dec_cred := string(b_dec_cred)
 	fmt.Printf(dec_cred)
 	fmt.Printf("dbhost: " + string(myconf.DBHost))
-	fmt.Printf("constring: " + string(myconf.DBHost) + string(myconf.DBPort) + "/" + string(myconf.dbkicker))
-	db, err := sql.Open("mysql", dec_cred+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
+	fmt.Printf("constring: " + string(myconf.DBHost) + string(myconf.DBPort) + "/" + string(myconf.Dbkicker))
+	db, err := sql.Open("mysql", dec_cred+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
 	if err != nil {
 		panic(err.Error())
 	}
