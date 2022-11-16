@@ -51,8 +51,8 @@ func ListAllPlayer(c *gin.Context) {
 		var surename string
         var lastname string
 
-		rows.Scan(&id, &name)
-		teamlist = append(playerlist, Player{id, surename, last})
+		rows.Scan(&id, &surename, &lasname)
+		playerlist = append(playerlist, Player{id, surename, lastname})
 	}
 	queryjson, _ := json.Marshal(&playerlist)
 	c.Data(http.StatusOK, "application/json", queryjson)
@@ -74,3 +74,4 @@ func AddTeam(c *gin.Context) {
  }
 func DelTeam(c *gin.Context) { }
 func UpdTeam(c *gin.Context) { }
+func AddTeamMember(c *gin.Context) { }
