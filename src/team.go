@@ -42,16 +42,16 @@ func ListAllPlayer(c *gin.Context) {
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
 	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
 	defer db.Close()
-	rows, err := db.Query("SELECT id, surename, lastname FROM player")
+	rows, err := db.Query("SELECT tid, surename, lastname FROM player")
 	if err != nil {
 		log.Fatal(err)
 	}
 	for rows.Next() {
-		var id int
+		var tid int
 		var surename string
         var lastname string
 
-		rows.Scan(&id, &surename, &lastname)
+		rows.Scan(&tid, &surename, &lastname)
 		playerlist = append(playerlist, Player{id, surename, lastname})
 	}
 	queryjson, _ := json.Marshal(&playerlist)
