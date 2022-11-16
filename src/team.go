@@ -51,7 +51,7 @@ func ListAllPlayer(c *gin.Context) {
 		var surename string
         var lastname string
 
-		rows.Scan(&tid, &surename, &lastname)
+		rows.Scan(&pid, &surename, &lastname)
 		playerlist = append(playerlist, Player{pid, surename, lastname})
 	}
 	queryjson, _ := json.Marshal(&playerlist)
