@@ -20,17 +20,17 @@ func ListTeams(c *gin.Context) {
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
 	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
 	defer db.Close()
-	rows, err := db.Query("SELECT id, name, teamtype FROM teams")
+	rows, err := db.Query("SELECT tid, name, teamtype FROM teams")
 	if err != nil {
 		log.Fatal(err)
 	}
 	for rows.Next() {
-		var id int
+		var tid int
 		var name string
-                var teamtype string
+        var teamtype string
 
-		rows.Scan(&id, &name)
-		teamlist = append(teamlist, Team{id, name, teamtype})
+		rows.Scan(&tid, &name)
+		teamlist = append(teamlist, Team{tid, name, teamtype})
 	}
 	queryjson, _ := json.Marshal(&teamlist)
 	c.Data(http.StatusOK, "application/json", queryjson)
@@ -42,17 +42,17 @@ func ListAllPlayer(c *gin.Context) {
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
 	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
 	defer db.Close()
-	rows, err := db.Query("SELECT tid, surename, lastname FROM player")
+	rows, err := db.Query("SELECT pid, surename, lastname FROM player")
 	if err != nil {
 		log.Fatal(err)
 	}
 	for rows.Next() {
-		var tid int
+		var pid int
 		var surename string
         var lastname string
 
 		rows.Scan(&tid, &surename, &lastname)
-		playerlist = append(playerlist, Player{id, surename, lastname})
+		playerlist = append(playerlist, Player{pid, surename, lastname})
 	}
 	queryjson, _ := json.Marshal(&playerlist)
 	c.Data(http.StatusOK, "application/json", queryjson)
