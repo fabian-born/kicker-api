@@ -13,7 +13,6 @@ import (
 )
 
 func getKicker(c *gin.Context) {
-
 	var kickerlist []Kicker
 
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
@@ -67,7 +66,7 @@ func getKickerDetail(c *gin.Context) {
 func newKicker(c *gin.Context) {
 	var newKicker Kicker
 	//
-	// curl -H "Content-Type: application/json" -X POST -d '{"ID":1,"Name":"fabian-dev2"}' http://192.168.69.22:8083/api/kicker/new
+	// curl -H "Content-Type: application/json" -X POST -d '{"ID":3,"Name":"fabian-dev2"}' http://192.168.69.22:8083/api/kicker/new
 	// Call BindJSON to bind the received JSON to
 	// newKicker.
 	if err := c.BindJSON(&newKicker); err != nil {

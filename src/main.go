@@ -72,10 +72,10 @@ func main() {
 	//    var myconf conf
 	myconf.GetConfig()
 	// expand environment variables
-	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
+	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.dbcredential))
 	dec_cred := string(b_dec_cred)
 	fmt.Printf(dec_cred)
-
+	fmt.Printf("dbhost: " + string(myconf.DBHost))
 	db, err := sql.Open("mysql", dec_cred+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
 	if err != nil {
 		panic(err.Error())
