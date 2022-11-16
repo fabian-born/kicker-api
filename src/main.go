@@ -50,6 +50,12 @@ type Team struct {
 	Teamtype string `json:"teamtype"` // single, multi
 }
 
+type Player struct {
+	ID   int    `json:"id"`
+	Surename string `json:"surename"`
+	Lastname string `json:"lastname"`
+}
+
 func (c *conf) GetConfig() *conf {
 	confContent, err := ioutil.ReadFile("/app/config/config.yml")
 	// confContent, err := ioutil.ReadFile("./config.yml")
@@ -101,6 +107,13 @@ func main() {
 	router.POST("/api/kicker/:id/:action", KickerPlayGame)
 	router.GET("/api/games", getGames)
 	router.GET("/api/games/:id/data", getGameData)
+	// route for teams
+	router.GET("/api/teams", ListTeams)
+	router.GET("/api/teams/member", ListAllPlayer)
+	router.POST("/api/teams/add", AddTeam)
+	router.GET("/api/teams/:id/member", ListTeams)
+	router.POST("/api/teams/:id/member/add", AddTeamMember)
+
 	http.ListenAndServe(":8084", router)
 	// router.Run(":8084")
 }
