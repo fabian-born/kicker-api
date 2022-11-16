@@ -19,7 +19,6 @@ func ListTeams(c *gin.Context) {
 
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
 	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
-
 	defer db.Close()
 	rows, err := db.Query("SELECT id, name FROM kicker")
 	if err != nil {
@@ -49,7 +48,6 @@ func AddTeam(c *gin.Context) {
 	}
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
 	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
-
 	insert, err := db.Query("INSERT INTO teams VALUES ( NULL, '" + newTeam.Name + "' )")
 	if err != nil {
 		panic(err.Error())
