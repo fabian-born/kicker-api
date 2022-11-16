@@ -44,6 +44,12 @@ type conf struct {
 	dbkicker  string `yaml:"dbkicker"`
 }
 
+type Team struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+	Type string `json:"type"` // single, multi
+}
+
 func (c *conf) GetConfig() *conf {
 	confContent, err := ioutil.ReadFile("/app/config/config.yml")
 	// confContent, err := ioutil.ReadFile("./config.yml")
@@ -57,6 +63,8 @@ func (c *conf) GetConfig() *conf {
 	}
 	return c
 }
+
+
 
 var myconf conf
 
