@@ -72,7 +72,7 @@ func main() {
 	//    var myconf conf
 	myconf.GetConfig()
 	// expand environment variables
-	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.dbcredential))
+	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
 	dec_cred := string(b_dec_cred)
 	fmt.Printf(dec_cred)
 	fmt.Printf("dbhost: " + string(myconf.DBHost))
