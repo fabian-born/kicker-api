@@ -6,7 +6,7 @@ metadata:
   namespace: epicshitio-kicker
 data:
   config.yml: |-
-    dbhost: "mysql.epicshitio-kicker.svc.cluster.local"
-    dbport: 3306
-    dbcredential: "cm9vdDp0ZXN0MTIzNAo="
-    dbkicker: kicker
+dbhost: "mysql.epicshitio-kicker.svc.cluster.local"
+dbport: 3306
+dbcredential: "cm9vdDp0ZXN0MTIzNAo="
+dbkicker: kicker
