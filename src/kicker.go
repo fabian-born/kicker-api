@@ -7,14 +7,16 @@ import (
 	"log"
 	"net/http"
 	"strings"
-
+	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
+
 )
 
 func getKicker(c *gin.Context) {
 	var kickerlist []Kicker
-
+	fmt.Printf(dec_cred)
+	fmt.Printf("constring: " + string(myconf.DBHost) + string(myconf.DBPort) + "/" + string(myconf.dbkicker))
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
 	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
 
