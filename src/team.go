@@ -14,7 +14,29 @@ import (
 
 
 // team functions //
-func ListTeams(c *gin.Context) { }
+func ListTeams(c *gin.Context) {
+	var teamslist []Team
+
+	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
+	db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
+
+	defer db.Close()
+	rows, err := db.Query("SELECT id, name FROM kicker")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for rows.Next() {
+		var id int
+		var name string
+                var type string
+
+		rows.Scan(&id, &name)
+		teamslist = append(teamlist, Team{id, name,type})
+	}
+	// c.IndentedJSON(http.StatusOK, string(queryjson))
+	queryjson, _ := json.Marshal(&teamlist)
+	c.Data(http.StatusOK, "application/json", queryjson)
+}
 
 func AddTeam(c *gin.Context) {
         var newTeam Team
@@ -22,7 +44,7 @@ func AddTeam(c *gin.Context) {
 	// curl -H "Content-Type: application/json" -X POST -d '{"ID":1,"Name":"fabian-dev2"}' http://192.168.69.22:8083/api/kicker/new
 	// Call BindJSON to bind the received JSON to
 	// newKicker.
-	if err := c.BindJSON(&newKicker); err != nil {
+	if err := c.BindJSON(&newTeam); err != nil {
 		return
 	}
 	b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
