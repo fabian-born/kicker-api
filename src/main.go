@@ -47,7 +47,7 @@ type conf struct {
 type Team struct {
 	ID   int    `json:"id"`
 	Name string `json:"name"`
-	Type string `json:"type"` // single, multi
+	Teamtype string `json:"teamtype"` // single, multi
 }
 
 func (c *conf) GetConfig() *conf {

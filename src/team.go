@@ -28,10 +28,10 @@ func ListTeams(c *gin.Context) {
 	for rows.Next() {
 		var id int
 		var name string
-                var type string
+                var teamtype string
 
 		rows.Scan(&id, &name)
-		teamslist = append(teamlist, Team{id, name,type})
+		teamlist = append(teamlist, Team{id, name, teamtype})
 	}
 	// c.IndentedJSON(http.StatusOK, string(queryjson))
 	queryjson, _ := json.Marshal(&teamlist)
