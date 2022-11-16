@@ -20,11 +20,11 @@ func KickerPlayGame(c *gin.Context) {
 	if  PlayGame.KickerId ==  id {
 		b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
 	        c.JSON(200, gin.H{"status": PlayGame})
-		db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
+		
 		if action == "startgame" {
 			sqlquery, err := db.Query("insert into games value (NULL, '"+ PlayGame.KickerId +"',now(),NULL)" )
 			if err != nil {panic(err.Error())}
-			defer sqlquery.Close()
+			defer sqlquery.Close()db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
 		}else if action == "endgame"{
 			sqlquery, err := db.Query("UPDATE games set enddate = now() where (kickerid = '"+ PlayGame.KickerId +"' and gameid = '"+ PlayGame.GameId +"')" )
 			if err != nil {panic(err.Error())}
@@ -49,7 +49,7 @@ func KickerGoal(c *gin.Context) {
         }
 	c.JSON(200, gin.H{"status": newGameData.Gdid})
         b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
-        db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
+        db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
 
 
         insert, err := db.Query("INSERT INTO gamedata  VALUES (NULL, '" + newGameData.Gameid + "', '" + string(newGameData.KickerId) + "', now(), '" + string(newGameData.TeamAGoal) + "', '" + string(newGameData.TeamBGoal) + "', '" + string(newGameData.Humidity) + "', '" + string(newGameData.Temperature) + "', '" + string(newGameData.TeamAId) + "', '" + string(newGameData.TeamBId) + "')")

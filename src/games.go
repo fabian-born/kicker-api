@@ -26,7 +26,7 @@ func getGames(c *gin.Context) {
     var gamelist []Games
 
     b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
-    db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred),"\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
+    db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred),"\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
     // return games data
     defer db.Close()
     rows, err := db.Query("SELECT * FROM games")
@@ -61,7 +61,7 @@ func getKickerlatestGame(c *gin.Context) {
     var gamelist []Games
 
     b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
-    db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred),"\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
+    db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred),"\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
     // return games data
     defer db.Close()
     rows, err := db.Query("SELECT * FROM games where kickerid = " + id + " ORDER BY gameid DESC LIMIT 1")
@@ -86,7 +86,7 @@ func getGameData(c *gin.Context) {
 
         var gamedatalist []Gamedata
         b_dec_cred, _ := b64.StdEncoding.DecodeString((myconf.Credential))
-        db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.dbkicker )
+        db, err := sql.Open("mysql", strings.TrimSuffix(string(b_dec_cred), "\n")+"@tcp("+myconf.DBHost+":"+myconf.DBPort+")/" + myconf.Dbkicker )
         if err != nil {
                 panic(err.Error())
         }
